@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<!--
+	Astral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>AP Assist | Peter Toth</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="base/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="base/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+	<script src="base/assets/js/jquery.min.js"></script>
+
+	<script>
+									function load(){
+										var xhttp = new XMLHttpRequest();
+										xhttp.onreadystatechange = function(){
+											if(this.readyState == 4 && this.status == 200){
+												document.getElementById("gallery_data").innerHTML = this.responseText;
+											}
+										};
+										xhttp.open("GET", "ajax*getGallery", true);
+										xhttp.send();
+									}
+
+									function doExport(){
+										var xhttp = new XMLHttpRequest();
+										xhttp.onreadystatechange = function(){
+											if(this.readyState == 4 && this.status == 200){
+												alert(this.responseText);
+											}
+										};
+										xhttp.open("GET", "ajax*export", true);
+										xhttp.send();
+									}
+
+									function clear(){
+										console.log("test");
+										var clearConfirm = confirm("Are you sure you want to clear the gallery?");
+										if(clearConfirm == false){
+											return;
+										}
+										var xhttp = new XMLHttpRequest();
+										xhttp.onreadystatechange = function(){
+											if(this.readyState == 4 && this.status == 200){
+												alert(this.responseText);
+												load();
+											}
+										};
+										xhttp.open("GET", "ajax*clearGallery", true);
+										xhttp.send();
+									}
+								</script>
+
+		<!-- Wrapper-->
+			<div id="wrapper">
+
+				<!-- Nav -->
+					<nav id="nav">
+						<a href="#" class="icon solid fa-home"><span>Home</span></a>
+						<a href="#gallery" class="icon solid fa-images"><span>Gallery</span></a>
+						<a href="#upload" class="icon solid fa-file-upload"><span>Upload</span></a>
+						<a href="https://twitter.com/ptoth25" class="icon brands fa-twitter"><span>Twitter</span></a>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Me -->
+							<article id="home" class="panel intro">
+								<header>
+									<h1>AP Assist</h1>
+									<p>by Peter Toth</p>
+								</header>
+								<a href="#gallery" class="jumplink pic">
+									<span class="arrow icon solid fa-chevron-right"><span>Go to Gallery</span></span>
+									<img src="base/images/profile_pic.jpeg" alt="" />
+								</a>
+							</article>
+
+						<!-- Gallery -->
+							<article id="gallery" class="panel">
+								<header>
+									<h2>Album Gallery</h2>
+									<button id="export_button" class="button">Export to Desktop</button>
+									<button id="clear_button" class="button">Clear Gallery</button>
+									<script>
+										document.getElementById("export_button").addEventListener("click", doExport);
+										document.getElementById("clear_button").addEventListener("click", clear);
+									</script>
+									<br><br><h3>Instructions</h3>
+									<ul>
+										<li>First, open the web browser on your mobile device.</li>
+										<li>Navigate to "http://<span id="ipaddr"></span><script>
+											var xhttp = new XMLHttpRequest();
+											xhttp.onreadystatechange = function(){
+												if(this.readyState == 4 && this.status == 200){
+													document.getElementById('ipaddr').innerHTML = this.responseText;
+												}
+											};
+											xhttp.open("GET", "ajax*getAddress", true);
+											xhttp.send();
+										</script>" on your mobile device. <i>Note: your mobile device must be on the same network (Wi-Fi).</i></li>
+										<li>On your mobile device, go to the upload tab and upload your pictures. <i>Note: It may take up to a minute after you click "Upload" to complete.</i></li>
+										<li>Once uploaded, you will be redirected to the home screen, and the images will be available to be viewed in the gallery tab.</li>
+										<li>From here, they can be exported to your desktop by clicking "Export to Desktop." The images will be placed in a folder named "APAssist" on your desktop.</li>
+									</ul>
+								</header>
+								<p>
+									This is where your uploaded pictures will appear. Please click the upload button above to
+									upload a file!
+								</p>
+								<section id="gallery_data">
+									<div class="row">
+										<div class="col-4 col-6-medium col-12-small">
+											<a href="#" class="image fit"><img src="base/images/pic01.jpg" alt=""></a>
+										</div>
+									</div>
+								</section>
+
+							</article>
+
+						<!-- Upload -->
+							<article id="upload" class="panel">
+								<header>
+									<h2>Upload Images</h2>
+								</header>
+								<form action="/upload/" method="post" enctype="multipart/form-data">
+									<div>
+										<div class="row">
+											<i>Note: If you use an album name that already exists, your images will be
+												added to the existing album.</i>
+											<div class="col-6 col-12-medium">
+												<input type="text" name="name" placeholder="Album Name" required/>
+											</div>
+
+											<div class="col-12">
+												<label for="file-upload" class="button">
+												Choose Files...
+											</label>
+												<input required id="file-upload" name="files" type="file" style="display:none;" multiple data-max-files="10" />
+												<br><span id="file-selected"></span>
+												<script> $('#file-upload').bind('change', function() {
+													var names = "";
+													fileName = $(this).val();
+													for(var i = 0; i < document.getElementById("file-upload").files.length; i++)
+													{
+														names += document.getElementById("file-upload").files[i].name + "<br>";
+													}
+													$('#file-selected').html(names); })</script>
+											</div>
+											<div class="col-12">
+												<input type="submit" value="Upload" />
+											</div>
+										</div>
+									</div>
+								</form>
+							</article>
+
+					</div>
+
+				<!-- Footer -->
+					<div id="footer">
+						<ul class="copyright">
+							<li>&copy; Peter Toth 2020.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+
+			<script src="base/assets/js/browser.min.js"></script>
+			<script src="base/assets/js/breakpoints.min.js"></script>
+			<script src="base/assets/js/util.js"></script>
+			<script src="base/assets/js/main.js"></script>
+			<script>
+				load();
+			</script>
+
+	</body>
+</html>
